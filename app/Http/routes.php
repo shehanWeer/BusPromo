@@ -1,21 +1,33 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
 
-Route::get('/', 'WelcomeController@index');
+Route::get('login','PagesController@login');
 
-Route::get('home', 'HomeController@index');
+Route::get('/','PagesController@home');
 
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+Route::get('clients','PagesController@clients');
+
+Route::get('bus_owners','PagesController@bus_owners');
+
+Route::get('advertisers','PagesController@advertisers');
+
+Route::get('agents','PagesController@agents');
+
+Route::get('reports','PagesController@reports');
+
+Route::get('create_report','PagesController@create_report');
+
+Route::get('daily_log','PagesController@daily_log');
+
+Route::get('statistics','PagesController@statistics');
+
+Route::get('advertisements','PagesController@advertisements');
+
+Route::get('about','PagesController@about');
+
+Route::get('users','PagesController@users');
+
+Route::get('routes','PagesController@routes');
+
+Route::get('coaches','PagesController@coaches');
+
