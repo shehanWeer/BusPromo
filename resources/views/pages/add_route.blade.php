@@ -1,24 +1,21 @@
 @extends('layout')
 
 @section('title')
-    Reports
+    Add New Routes
 @stop
 
 @section('page-title')
-    Reports
+    Add New Routes
 @stop
 
 @section('sub-title')
-    Select your action
+    Add new routes to BusPromo
 @stop
 
 @section('breadcrumb')
     <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li class="active">Reports</li>
+        <li><a href="routes">Routes</a></li>
+        <li class="active">Add Routes</li>
     </ol>
-@stop
-
-@section('content')
-    content goes here
 @stop

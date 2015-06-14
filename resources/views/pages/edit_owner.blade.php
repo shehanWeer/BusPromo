@@ -1,24 +1,21 @@
 @extends('layout')
 
 @section('title')
-    Reports
+    Edit Bus Owner
 @stop
 
 @section('page-title')
-    Reports
+    Edit Bus Owner
 @stop
 
 @section('sub-title')
-    Select your action
+    Edit owner's details
 @stop
 
 @section('breadcrumb')
     <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li class="active">Reports</li>
+        <li><a href="bus_owners">Bus Owners</a></li>
+        <li class="active">Edit Bus Owners</li>
     </ol>
-@stop
-
-@section('content')
-    content goes here
 @stop

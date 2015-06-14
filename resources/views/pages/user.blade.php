@@ -1,24 +1,20 @@
 @extends('layout')
 
 @section('title')
-    Reports
+    User Profile
 @stop
 
 @section('page-title')
-    Reports
+    User Profile
 @stop
 
 @section('sub-title')
-    Select your action
+    Name of the Profile owner
 @stop
 
 @section('breadcrumb')
     <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li class="active">Reports</li>
+        <li class="active">User Profile</li>
     </ol>
-@stop
-
-@section('content')
-    content goes here
 @stop

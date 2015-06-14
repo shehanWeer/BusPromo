@@ -1,24 +1,20 @@
 @extends('layout')
 
 @section('title')
-    Reports
+    Pending Transactions
 @stop
 
 @section('page-title')
-    Reports
+    Pending Transactions
 @stop
 
 @section('sub-title')
-    Select your action
+    Transactions to be done
 @stop
 
 @section('breadcrumb')
     <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li class="active">Reports</li>
+        <li class="active">Pending Transactions</li>
     </ol>
-@stop
-
-@section('content')
-    content goes here
 @stop

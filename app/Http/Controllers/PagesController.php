@@ -60,11 +60,82 @@ class PagesController extends Controller {
     }
 
     public function routes(){
-        return "Routes";
+        return view('pages.routes');
     }
 
     public function coaches(){
         return "Coaches";
     }
 
+    public function settings(){
+        return view('pages.settings');
+    }
+
+    public function new_members(){
+        return view('pages.new_members');
+    }
+
+    public function transaction_done(){
+        return view('pages.transaction_done');
+    }
+
+    public function transaction_pending(){
+        return view('pages.transaction_pending');
+    }
+
+    public function transaction_failed(){
+        return view('pages.transaction_failed');
+    }
+
+    public function view_routes(){
+        return view('pages.view_routes');
+    }
+
+    public function add_route(){
+        return view('pages.add_route');
+    }
+
+    public function edit_route(){
+        return view('pages.edit_route');
+    }
+
+    public function remove_route(){
+        return view('pages.remove_route');
+    }
+
+    public function all_owners(){
+        return view('pages.all_owners');
+    }
+
+    public function add_owner(){
+        return view('pages.add_owner');
+    }
+
+    public function edit_owner(){
+        return view('pages.edit_owner');
+    }
+
+    public function remove_owner(){
+        return view('pages.remove_owner');
+    }
+
+    public function view_advertisers(){
+        return view('pages.view_advertisers');
+    }
+
+    public function add_advertiser(){
+        return view('pages.add_advertiser');
+    }
+
+    public function edit_advertiser(){
+        return view('pages.edit_advertiser');
+    }
+
+    public function remove_advertiser(){
+        return view('pages.remove_advertiser');
+    }
+
+    public function user(){
+        return view('pages.user');
+    }
 }

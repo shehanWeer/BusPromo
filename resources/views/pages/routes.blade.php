@@ -1,21 +1,21 @@
 @extends('layout')
 
 @section('title')
-    Bus Owners
+    Routes
 @stop
 
 @section('page-title')
-    Bus Owners
+    Routes
 @stop
 
 @section('sub-title')
-    Registerd Bus owners in BusPromo
+    Select your action
 @stop
 
 @section('breadcrumb')
     <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li class="active">Bus Owners</li>
+        <li class="active">Routes</li>
     </ol>
 @stop
 
@@ -27,12 +27,12 @@
             <div class="small-box bg-aqua">
                 <div class="inner">
                     <h3>93</h3>
-                    <p>Registered Owners</p>
+                    <p>View All Routes</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-person-stalker"></i>
+                    <i class="ion ion-network"></i>
                 </div>
-                <a href="all_owners" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="view_routes" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div><!-- ./col -->
         <div class="col-lg-3 col-xs-6">
@@ -40,12 +40,12 @@
             <div class="small-box bg-green">
                 <div class="inner">
                     <h3>+</h3>
-                    <p>Add New Owner</p>
+                    <p>Add New Route</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-person-add"></i>
+                    <i class="ion ion-fork-repo"></i>
                 </div>
-                <a href="add_owner" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="add_route" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div><!-- ./col -->
         <div class="col-lg-3 col-xs-6">
@@ -53,12 +53,12 @@
             <div class="small-box bg-yellow">
                 <div class="inner">
                     <h3>E</h3>
-                    <p>Edit Owner</p>
+                    <p>Edit Route Details</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-edit"></i>
+                    <i class="ion ion-pull-request"></i>
                 </div>
-                <a href="edit_owner" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="edit_route" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div><!-- ./col -->
         <div class="col-lg-3 col-xs-6">
@@ -66,12 +66,12 @@
             <div class="small-box bg-red">
                 <div class="inner">
                     <h3>X</h3>
-                    <p>Remove Owner</p>
+                    <p>Remove Route</p>
                 </div>
                 <div class="icon">
-                    <i class="ion ion-minus-circled"></i>
+                    <i class="ion ion-merge"></i>
                 </div>
-                <a href="remove_owner" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="remove_route" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div><!-- ./col -->
     </div><!-- /.row -->

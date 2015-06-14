@@ -1,24 +1,21 @@
 @extends('layout')
 
 @section('title')
-    Reports
+    Add New Advertiser
 @stop
 
 @section('page-title')
-    Reports
+    Add New Advertiser
 @stop
 
 @section('sub-title')
-    Select your action
+    Register New Advertiser into BusPromo
 @stop
 
 @section('breadcrumb')
     <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li class="active">Reports</li>
+        <li><a href="advertisers">Advertiser</a></li>
+        <li class="active">Add New Advertisers</li>
     </ol>
-@stop
-
-@section('content')
-    content goes here
 @stop

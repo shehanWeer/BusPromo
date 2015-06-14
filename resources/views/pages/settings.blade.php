@@ -1,21 +1,21 @@
 @extends('layout')
 
 @section('title')
-    Reports
+    Settings
 @stop
 
 @section('page-title')
-    Reports
+    Settings
 @stop
 
 @section('sub-title')
-    Select your action
+    Edit your settings
 @stop
 
 @section('breadcrumb')
     <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li class="active">Reports</li>
+        <li class="active">Settings</li>
     </ol>
 @stop
 

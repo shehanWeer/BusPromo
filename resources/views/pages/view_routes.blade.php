@@ -1,24 +1,21 @@
 @extends('layout')
 
 @section('title')
-    Reports
+    View All Routes
 @stop
 
 @section('page-title')
-    Reports
+    View All Routes
 @stop
 
 @section('sub-title')
-    Select your action
+    Routes in BusPromo
 @stop
 
 @section('breadcrumb')
     <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li class="active">Reports</li>
+        <li><a href="routes">Routes</a></li>
+        <li class="active">View Routes</li>
     </ol>
-@stop
-
-@section('content')
-    content goes here
 @stop

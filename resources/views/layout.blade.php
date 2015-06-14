@@ -171,7 +171,7 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    <a href="user" class="btn btn-default btn-flat">Profile</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="#" class="btn btn-default btn-flat">Sign out</a>
@@ -181,7 +181,7 @@
                     </li>
                     <!-- Control Sidebar Toggle Button -->
                     <li>
-                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                        <a href="settings"><i class="fa fa-gears"></i></a>
                     </li>
                 </ul>
             </div>
@@ -219,13 +219,13 @@
             <ul class="sidebar-menu">
                 <li class="header">MAIN MENU</li>
                 <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="#"><i class='fa fa-link'></i> <span>Home</span></a></li>
-                <li><a href="#"><i class='fa fa-link'></i> <span>Routes</span></a></li>
+                <li class="active"><a href="/"><i class='fa fa-link'></i> <span>Home</span></a></li>
+                <li><a href="routes"><i class='fa fa-link'></i> <span>Routes</span></a></li>
                 <li class="treeview">
                     <a href="#"><i class='fa fa-link'></i> <span>Customers</span> <i class="fa fa-angle-left pull-right"></i></a>
                     <ul class="treeview-menu">
-                        <li><a href="#">Bus Owners</a></li>
-                        <li><a href="#">Advertisers</a></li>
+                        <li><a href="bus_owners">Bus Owners</a></li>
+                        <li><a href="advertisers">Advertisers</a></li>
                     </ul>
                 </li>
                 <li><a href="reports"><i class='fa fa-link'></i> <span>Reports</span></a></li>
@@ -241,15 +241,29 @@
                 @yield('page-title')
                 <small>@yield('sub-title')</small>
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i>@yield('page-title')</a></li>
-                <li class="active">@yield('sub-title')</li>
-            </ol>
+            @yield('breadcrumb')
+            <!--<ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i>#yield('page-title')</a></li>
+                <li class="active">#yield('sub-title')</li>
+            </ol>-->
         </section>
         <!-- Main content -->
         <section class="content">
-            @yield('content')
+            @yield('content_1')
+            <!-- Main row -->
+            <div class="row">
+                <!-- Left col -->
+                <section class="col-lg-7 connectedSortable">
+                    @yield('content_main_column')
+                </section><!-- /.Left col -->
+                <!-- right col (We are only adding the ID to make the widgets sortable)-->
+                <section class="col-lg-5 connectedSortable">
+                    @yield('content_right_column')
+                </section><!-- right col -->
+            </div><!-- /.row (main row) -->
+
         </section><!-- /.content -->
+
     </div><!-- /.content-wrapper -->
     <!-- Main Footer -->
     <footer class="main-footer">

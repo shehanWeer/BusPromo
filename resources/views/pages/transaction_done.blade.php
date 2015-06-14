@@ -1,24 +1,20 @@
 @extends('layout')
 
 @section('title')
-    Reports
+    Completed Transactions
 @stop
 
 @section('page-title')
-    Reports
+    Completed Transactions
 @stop
 
 @section('sub-title')
-    Select your action
+    Successfull Transactions
 @stop
 
 @section('breadcrumb')
     <ol class="breadcrumb">
         <li><a href="/"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li class="active">Reports</li>
+        <li class="active">Completed Transactions</li>
     </ol>
-@stop
-
-@section('content')
-    content goes here
 @stop
