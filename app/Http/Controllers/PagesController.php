@@ -7,8 +7,13 @@ use Illuminate\Http\Request;
 
 class PagesController extends Controller {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function login(){
-        return view('pages.login');
+        return view('auth.login');
     }
 
     public function home(){

@@ -5,6 +5,8 @@ Route::get('login','PagesController@login');
 
 Route::get('/','PagesController@home');
 
+Route::get('home','HomeController@index');
+
 Route::get('clients','PagesController@clients');
 
 Route::get('bus_owners','PagesController@bus_owners');
@@ -67,3 +69,9 @@ Route::get('remove_advertiser','PagesController@remove_advertiser');
 
 Route::get('user','PagesController@user');
 
+Route::controllers([
+
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController'
+]);
+?>

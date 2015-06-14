@@ -4,6 +4,7 @@
     About
 @stop
 
-@section('content')
+@section('content_main_column')
     About
+    
 @stop
