@@ -6,5 +6,5 @@
 
 @section('content_main_column')
     About
-    
+
 @stop
