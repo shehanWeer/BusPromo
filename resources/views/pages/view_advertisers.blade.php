@@ -19,3 +19,16 @@
         <li class="active">View Advertisers</li>
     </ol>
 @stop
+
+@section('content_main_column')
+
+
+        <?php
+        foreach ($advertisers as $advertiser) {
+            echo "<div class='callout callout-info'><b>".$advertiser->name."</b></div>";
+        }
+        ?>
+
+
+
+@stop

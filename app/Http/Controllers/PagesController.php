@@ -128,10 +128,6 @@ class PagesController extends Controller {
         return view('pages.remove_owner');
     }
 
-    public function view_advertisers(){
-        return view('pages.view_advertisers');
-    }
-
     public function add_advertiser(){
         return view('pages.add_advertiser');
     }

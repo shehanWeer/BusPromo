@@ -26,7 +26,7 @@
             <!-- small box -->
             <div class="small-box bg-aqua">
                 <div class="inner">
-                    <h3>10</h3>
+                    <h3><?=$no_advertisers ?></h3>
                     <p>All Advertisers</p>
                 </div>
                 <div class="icon">
