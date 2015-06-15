@@ -22,6 +22,7 @@
     <link href="/css/blue.css" rel="stylesheet" type="text/css" />
     <!-- Morris chart -->
     <link href="/css/morris.css" rel="stylesheet" type="text/css" />
+
     <!-- jvectormap -->
     <link href="/css/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
     <!-- Date Picker -->
