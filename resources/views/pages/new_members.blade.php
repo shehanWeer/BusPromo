@@ -19,3 +19,7 @@
     </ol>
 @stop
 
+@section('content_main_column')
+    
+@stop
+

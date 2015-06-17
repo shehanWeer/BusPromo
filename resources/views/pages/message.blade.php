@@ -14,7 +14,13 @@
 
 @section('breadcrumb')
     <ol class="breadcrumb">
-        <li><a href="/"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a onclick="goBack()" href=""><i></i>Back</a></li>
+        <script>
+            function goBack() {
+                window.history.back();
+                window.history.back();
+            }
+        </script>
     </ol>
 @stop
 
