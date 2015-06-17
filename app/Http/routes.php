@@ -11,7 +11,7 @@ Route::get('clients','PagesController@clients');
 
 Route::get('bus_owners','PagesController@bus_owners');
 
-Route::get('advertisers','PagesController@advertisers');
+Route::get('advertisers','AdvertiserController@index');
 
 Route::get('agents','PagesController@agents');
 
@@ -59,9 +59,11 @@ Route::get('edit_owner','PagesController@edit_owner');
 
 Route::get('remove_owner','PagesController@remove_owner');
 
-Route::get('view_advertisers','PagesController@view_advertisers');
+Route::get('view_advertisers','AdvertiserController@show');
 
 Route::get('add_advertiser','PagesController@add_advertiser');
+
+Route::get('submit_advertiser','AdvertiserController@store');
 
 Route::get('edit_advertiser','PagesController@edit_advertiser');
 

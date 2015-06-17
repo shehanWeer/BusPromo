@@ -27,10 +27,10 @@
                         <h3 class="box-title">Fill this form</h3>
                     </div><!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form">
+                    <form role="form" action="{{ url('/submit_advertiser') }}">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="advertiser_name">ID</label>
+                                <label for="advertiser_id">ID</label>
                                 <input type="number" class="form-control" id="advertiser_id" name="advertiser_id" placeholder="Advertiser ID">
                             </div>
                             <div class="form-group">
