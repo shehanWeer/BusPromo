@@ -9,7 +9,7 @@ Route::get('home','HomeController@index');
 
 Route::get('clients','PagesController@clients');
 
-Route::get('bus_owners','PagesController@bus_owners');
+Route::get('bus_owners','Coach_ownerController@index');
 
 Route::get('advertisers','AdvertiserController@index');
 

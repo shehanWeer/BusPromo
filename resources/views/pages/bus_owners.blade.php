@@ -26,7 +26,7 @@
             <!-- small box -->
             <div class="small-box bg-aqua">
                 <div class="inner">
-                    <h3>93</h3>
+                    <h3><?=$no_owners ?></h3>
                     <p>Registered Owners</p>
                 </div>
                 <div class="icon">

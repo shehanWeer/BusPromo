@@ -3,11 +3,11 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Advertiser;
+use App\Coach_owner;
 use Auth;
 use Input;
 
-class AdvertiserController extends Controller {
+class Coach_ownerController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -16,10 +16,9 @@ class AdvertiserController extends Controller {
 	 */
 	public function index()
 	{
-        $no_advertisers = Advertiser::count();
-        return view('pages.advertisers')->with('no_advertisers', $no_advertisers);
-
-    }
+        $no_owners = Coach_owner::count();
+        return view('pages.bus_owners')->with('no_owners', $no_owners);
+	}
 
 	/**
 	 * Show the form for creating a new resource.
@@ -38,18 +37,7 @@ class AdvertiserController extends Controller {
 	 */
 	public function store()
 	{
-        $input = Input::only('advertiser_id','advertiser_name','advertiser_address', 'advertiser_tel');
-        $advertiser = new Advertiser;
-        $advertiser->id = $input['advertiser_id'];
-        $advertiser->name = $input['advertiser_name'];
-        $advertiser->address = $input['advertiser_address'];
-        $advertiser->contact_no = $input['advertiser_tel'];
-        $advertiser->added_by = Auth::user()->id;
-        $advertiser->save();
-
-        return view('pages.message')->with('message', 'Advertiser added successfully!');
-
-
+		//
 	}
 
 	/**
@@ -58,10 +46,9 @@ class AdvertiserController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show()
+	public function show($id)
 	{
-        $advertisers = Advertiser::all();
-        return view('pages.view_advertisers', ['advertisers' => $advertisers]);
+		//
 	}
 
 	/**
