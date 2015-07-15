@@ -55,6 +55,8 @@ Route::get('all_owners','PagesController@all_owners');
 
 Route::get('add_owner','PagesController@add_owner');
 
+Route::get('submit_owner','Coach_ownerController@store');
+
 Route::get('edit_owner','PagesController@edit_owner');
 
 Route::get('remove_owner','PagesController@remove_owner');

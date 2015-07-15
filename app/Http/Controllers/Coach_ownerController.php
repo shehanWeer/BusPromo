@@ -37,8 +37,20 @@ class Coach_ownerController extends Controller {
 	 */
 	public function store()
 	{
-		//
-	}
+        $input = Input::only('owner_id','name','contact_no', 'address', 'added_by', 'agreement_start', 'agreement_end');
+        $advertiser = new Coach_owner;
+        $advertiser->owner_id = $input['owner_id'];
+        $advertiser->name = $input['owner_name'];
+        $advertiser->contact_no = $input['owner_contact_no'];
+        $advertiser->address = $input['owner_address'];
+        $advertiser->added_by = Auth::user()->id;
+        $advertiser->agreement_start = $input['agreement_start'];
+        $advertiser->agreement_end = $input['agreement_end'];
+        $advertiser->save();
+
+        return view('pages.message')->with('message', 'Coach owner added successfully!');
+
+    }
 
 	/**
 	 * Display the specified resource.

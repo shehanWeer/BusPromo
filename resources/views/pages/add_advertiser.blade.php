@@ -30,16 +30,16 @@
                     <form role="form" action="{{ url('/submit_advertiser') }}">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="advertiser_id">ID</label>
-                                <input type="number" class="form-control" id="advertiser_id" name="advertiser_id" placeholder="Advertiser ID">
+                                <label for="owner_id">ID</label>
+                                <input type="number" class="form-control" id="owner_id" name="owner_id" placeholder="Owner ID">
                             </div>
                             <div class="form-group">
-                                <label for="advertiser_name">Name</label>
-                                <input type="text" class="form-control" id="advertiser_name" name="advertiser_name" placeholder="Advertiser Name">
+                                <label for="owner_name">Name</label>
+                                <input type="text" class="form-control" id="owner_name" name="owner_name" placeholder="Advertiser Name">
                             </div>
                             <div class="form-group">
                                 <label for="advertiser_address">Address</label>
-                                <input type="text" class="form-control" id="advertiser_address" name="advertiser_address" placeholder="Advertiser Address">
+                                <input type="text" class="form-control" id="owner_address" name="owner_address" placeholder="Advertiser Address">
                             </div>
                             <div class="form-group">
                                 <label for="advertiser_tel">Contact Number</label>
