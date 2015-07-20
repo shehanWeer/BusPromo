@@ -223,6 +223,7 @@
                 <!-- Optionally, you can add icons to the links -->
                 <li class="active"><a href="/"><i class='fa fa-link'></i> <span>Home</span></a></li>
                 <li><a href="routes"><i class='fa fa-link'></i> <span>Routes</span></a></li>
+                <li><a href="advertisements"><i class='fa fa-link'></i> <span>Advertisements</span></a></li>
                 <li class="treeview">
                     <a href="#"><i class='fa fa-link'></i> <span>Customers</span> <i class="fa fa-angle-left pull-right"></i></a>
                     <ul class="treeview-menu">
@@ -231,7 +232,7 @@
                     </ul>
                 </li>
                 <li><a href="reports"><i class='fa fa-link'></i> <span>Reports</span></a></li>
-            </ul><!-- /.sidebar-menu -->
+                </ul><!-- /.sidebar-menu -->
         </section>
         <!-- /.sidebar -->
     </aside>

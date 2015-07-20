@@ -73,6 +73,9 @@ Route::get('remove_advertiser','PagesController@remove_advertiser');
 
 Route::get('user','PagesController@user');
 
+Route::get('getupdatestamp','Apicontroller@getupdatestamp');
+
+
 Route::controllers([
 
     'auth' => 'Auth\AuthController',
