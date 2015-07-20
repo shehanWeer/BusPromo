@@ -120,9 +120,9 @@ class DatabaseTokenRepository implements TokenRepositoryInterface {
 	 */
 	protected function tokenExpired($token)
 	{
-		$expirationTime = strtotime($token['created_at']) + $this->expires;
+		$createdPlusHour = strtotime($token['created_at']) + $this->expires;
 
-		return $expirationTime < $this->getCurrentTime();
+		return $createdPlusHour < $this->getCurrentTime();
 	}
 
 	/**
@@ -153,9 +153,9 @@ class DatabaseTokenRepository implements TokenRepositoryInterface {
 	 */
 	public function deleteExpired()
 	{
-		$expiredAt = Carbon::now()->subSeconds($this->expires);
+		$expired = Carbon::now()->subSeconds($this->expires);
 
-		$this->getTable()->where('created_at', '<', $expiredAt)->delete();
+		$this->getTable()->where('created_at', '<', $expired)->delete();
 	}
 
 	/**
@@ -166,7 +166,11 @@ class DatabaseTokenRepository implements TokenRepositoryInterface {
 	 */
 	public function createNewToken(CanResetPasswordContract $user)
 	{
-		return hash_hmac('sha256', str_random(40), $this->hashKey);
+		$email = $user->getEmailForPasswordReset();
+
+		$value = str_shuffle(sha1($email.spl_object_hash($this).microtime(true)));
+
+		return hash_hmac('sha1', $value, $this->hashKey);
 	}
 
 	/**

@@ -12,12 +12,11 @@ trait ValidatesRequests {
 	 *
 	 * @param  \Illuminate\Http\Request  $request
 	 * @param  array  $rules
-	 * @param  array  $messages
 	 * @return void
 	 */
-	public function validate(Request $request, array $rules, array $messages = array())
+	public function validate(Request $request, array $rules)
 	{
-		$validator = $this->getValidationFactory()->make($request->all(), $rules, $messages);
+		$validator = $this->getValidationFactory()->make($request->all(), $rules);
 
 		if ($validator->fails())
 		{
@@ -48,14 +47,14 @@ trait ValidatesRequests {
 	 */
 	protected function buildFailedValidationResponse(Request $request, array $errors)
 	{
-		if ($request->ajax() || $request->wantsJson())
+		if ($request->ajax())
 		{
 			return new JsonResponse($errors, 422);
 		}
 
 		return redirect()->to($this->getRedirectUrl())
-						->withInput($request->input())
-						->withErrors($errors, $this->errorBag());
+                        ->withInput($request->input())
+                        ->withErrors($errors);
 	}
 
 	/**
@@ -87,16 +86,6 @@ trait ValidatesRequests {
 	protected function getValidationFactory()
 	{
 		return app('Illuminate\Contracts\Validation\Factory');
-	}
-
-	/**
-	 * Get the key to be used for the view error bag.
-	 *
-	 * @return string
-	 */
-	protected function errorBag()
-	{
-		return 'default';
 	}
 
 }
