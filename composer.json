@@ -5,8 +5,9 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-		"laravel/framework": "5.0",
-		"jaspersoft/rest-client": "v2.0.0"
+		"laravel/framework": "5.0.*",
+        "jaspersoft/rest-client": "v2.0.0",
+        "dawson/youtube": "1.0.2"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",
