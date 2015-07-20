@@ -13,13 +13,7 @@ use SebastianBergmann\Environment\Runtime;
 /**
  * Provides collection functionality for PHP code coverage information.
  *
- * @category   PHP
- * @package    CodeCoverage
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://github.com/sebastianbergmann/php-code-coverage
- * @since      Class available since Release 1.0.0
+ * @since Class available since Release 1.0.0
  */
 class PHP_CodeCoverage
 {
@@ -34,32 +28,32 @@ class PHP_CodeCoverage
     private $filter;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $cacheTokens = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $checkForUnintentionallyCoveredCode = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $forceCoversAnnotation = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $mapTestClassNameToCoveredClassName = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $addUncoveredFilesFromWhitelist = true;
 
     /**
-     * @var boolean
+     * @var bool
      */
     private $processUncoveredFilesFromWhitelist = false;
 
@@ -90,8 +84,8 @@ class PHP_CodeCoverage
     /**
      * Constructor.
      *
-     * @param  PHP_CodeCoverage_Driver $driver
-     * @param  PHP_CodeCoverage_Filter $filter
+     * @param  PHP_CodeCoverage_Driver    $driver
+     * @param  PHP_CodeCoverage_Filter    $filter
      * @throws PHP_CodeCoverage_Exception
      */
     public function __construct(PHP_CodeCoverage_Driver $driver = null, PHP_CodeCoverage_Filter $filter = null)
@@ -154,7 +148,7 @@ class PHP_CodeCoverage
      * Returns the collected code coverage data.
      * Set $raw = true to bypass all filters.
      *
-     * @param bool $raw
+     * @param  bool  $raw
      * @return array
      * @since  Method available since Release 1.1.0
      */
@@ -210,7 +204,7 @@ class PHP_CodeCoverage
      * Start collection of code coverage information.
      *
      * @param  mixed                      $id
-     * @param  boolean                    $clear
+     * @param  bool                       $clear
      * @throws PHP_CodeCoverage_Exception
      */
     public function start($id, $clear = false)
@@ -234,7 +228,7 @@ class PHP_CodeCoverage
     /**
      * Stop collection of code coverage information.
      *
-     * @param  boolean                    $append
+     * @param  bool                       $append
      * @param  mixed                      $linesToBeCovered
      * @param  array                      $linesToBeUsed
      * @return array
@@ -269,7 +263,7 @@ class PHP_CodeCoverage
      *
      * @param  array                      $data
      * @param  mixed                      $id
-     * @param  boolean                    $append
+     * @param  bool                       $append
      * @param  mixed                      $linesToBeCovered
      * @param  array                      $linesToBeUsed
      * @throws PHP_CodeCoverage_Exception
@@ -372,10 +366,18 @@ class PHP_CodeCoverage
         }
 
         $this->tests = array_merge($this->tests, $that->getTests());
+
+        $this->filter->setBlacklistedFiles(
+            array_merge($this->filter->getBlacklistedFiles(), $that->filter()->getBlacklistedFiles())
+        );
+
+        $this->filter->setWhitelistedFiles(
+            array_merge($this->filter->getWhitelistedFiles(), $that->filter()->getWhitelistedFiles())
+        );
     }
 
     /**
-     * @param  boolean                    $flag
+     * @param  bool                       $flag
      * @throws PHP_CodeCoverage_Exception
      * @since  Method available since Release 1.1.0
      */
@@ -400,7 +402,7 @@ class PHP_CodeCoverage
     }
 
     /**
-     * @param  boolean                    $flag
+     * @param  bool                       $flag
      * @throws PHP_CodeCoverage_Exception
      * @since  Method available since Release 2.0.0
      */
@@ -417,7 +419,7 @@ class PHP_CodeCoverage
     }
 
     /**
-     * @param  boolean                    $flag
+     * @param  bool                       $flag
      * @throws PHP_CodeCoverage_Exception
      */
     public function setForceCoversAnnotation($flag)
@@ -433,7 +435,7 @@ class PHP_CodeCoverage
     }
 
     /**
-     * @param  boolean                    $flag
+     * @param  bool                       $flag
      * @throws PHP_CodeCoverage_Exception
      */
     public function setMapTestClassNameToCoveredClassName($flag)
@@ -449,7 +451,7 @@ class PHP_CodeCoverage
     }
 
     /**
-     * @param  boolean                    $flag
+     * @param  bool                       $flag
      * @throws PHP_CodeCoverage_Exception
      */
     public function setAddUncoveredFilesFromWhitelist($flag)
@@ -465,7 +467,7 @@ class PHP_CodeCoverage
     }
 
     /**
-     * @param  boolean                    $flag
+     * @param  bool                       $flag
      * @throws PHP_CodeCoverage_Exception
      */
     public function setProcessUncoveredFilesFromWhitelist($flag)
@@ -691,7 +693,7 @@ class PHP_CodeCoverage
 
                         if (!$ignore) {
                             $start = $token->getLine();
-                            $end = $start + substr_count($token, "\n");
+                            $end   = $start + substr_count($token, "\n");
 
                             // Do not ignore the first line when there is a token
                             // before the comment
@@ -705,7 +707,7 @@ class PHP_CodeCoverage
 
                             // A DOC_COMMENT token or a COMMENT token starting with "/*"
                             // does not contain the final \n character in its text
-                            if (0 === strpos($_token, '/*') && '*/' === substr(trim($lines[$i-1]), -2)) {
+                            if (isset($lines[$i-1]) && 0 === strpos($_token, '/*') && '*/' === substr(trim($lines[$i-1]), -2)) {
                                 $this->ignoredLines[$filename][] = $i;
                             }
                         }

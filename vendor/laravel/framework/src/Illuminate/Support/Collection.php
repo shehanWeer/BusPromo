@@ -54,13 +54,22 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Collapse the collection of items into a single array.
+	 * Collapse the collection items into a single array.
 	 *
 	 * @return static
 	 */
 	public function collapse()
 	{
-		return new static(array_collapse($this->items));
+		$results = array();
+
+		foreach ($this->items as $values)
+		{
+			if ($values instanceof Collection) $values = $values->all();
+
+			$results = array_merge($results, $values);
+		}
+
+		return new static($results);
 	}
 
 	/**
@@ -80,7 +89,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 			});
 		}
 
-		if ($this->useAsCallable($key))
+		if ($key instanceof Closure)
 		{
 			return ! is_null($this->first($key));
 		}
@@ -102,10 +111,10 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	/**
 	 * Execute a callback over each item.
 	 *
-	 * @param  callable  $callback
+	 * @param  \Closure  $callback
 	 * @return $this
 	 */
-	public function each(callable $callback)
+	public function each(Closure $callback)
 	{
 		array_map($callback, $this->items);
 
@@ -126,10 +135,10 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	/**
 	 * Run a filter over each of the items.
 	 *
-	 * @param  callable  $callback
+	 * @param  \Closure  $callback
 	 * @return static
 	 */
-	public function filter(callable $callback)
+	public function filter(Closure $callback)
 	{
 		return new static(array_filter($this->items, $callback));
 	}
@@ -166,11 +175,11 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	/**
 	 * Get the first item from the collection.
 	 *
-	 * @param  callable   $callback
+	 * @param  \Closure   $callback
 	 * @param  mixed      $default
 	 * @return mixed|null
 	 */
-	public function first(callable $callback = null, $default = null)
+	public function first(Closure $callback = null, $default = null)
 	{
 		if (is_null($callback))
 		{
@@ -229,37 +238,50 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Group an associative array by a field or using a callback.
+	 * Group an associative array by a field or Closure value.
 	 *
 	 * @param  callable|string  $groupBy
 	 * @return static
 	 */
 	public function groupBy($groupBy)
 	{
-		if ( ! $this->useAsCallable($groupBy))
-		{
-			return $this->groupBy($this->valueRetriever($groupBy));
-		}
-
-		$results = [];
+		$results = array();
 
 		foreach ($this->items as $key => $value)
 		{
-			$results[$groupBy($value, $key)][] = $value;
+			$results[$this->getGroupByKey($groupBy, $key, $value)][] = $value;
 		}
 
 		return new static($results);
 	}
 
 	/**
-	 * Key an associative array by a field or using a callback.
+	 * Get the "group by" key value.
 	 *
-	 * @param  callable|string  $keyBy
+	 * @param  callable|string  $groupBy
+	 * @param  string  $key
+	 * @param  mixed  $value
+	 * @return string
+	 */
+	protected function getGroupByKey($groupBy, $key, $value)
+	{
+		if ( ! is_string($groupBy) && is_callable($groupBy))
+		{
+			return $groupBy($value, $key);
+		}
+
+		return data_get($value, $groupBy);
+	}
+
+	/**
+	 * Key an associative array by a field or using a closure.
+	 *
+	 * @param  string|\Closure  $keyBy
 	 * @return static
 	 */
 	public function keyBy($keyBy)
 	{
-		if ( ! $this->useAsCallable($keyBy))
+		if ( ! $keyBy instanceof Closure)
 		{
 			return $this->keyBy($this->valueRetriever($keyBy));
 		}
@@ -294,14 +316,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	 */
 	public function implode($value, $glue = null)
 	{
-		$first = $this->first();
-
-		if (is_array($first) || is_object($first))
-		{
-			return implode($glue, $this->lists($value));
-		}
-
-		return implode($value, $this->items);
+		return implode($glue, $this->lists($value));
 	}
 
 	/**
@@ -323,17 +338,6 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	public function isEmpty()
 	{
 		return empty($this->items);
-	}
-
-	/**
-	 * Determine if the given value is callable, but not a string.
-	 *
-	 * @param  mixed  $value
-	 * @return bool
-	 */
-	protected function useAsCallable($value)
-	{
-		return ! is_string($value) && is_callable($value);
 	}
 
 	/**
@@ -371,10 +375,10 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	/**
 	 * Run a map over each of the items.
 	 *
-	 * @param  callable  $callback
+	 * @param  \Closure  $callback
 	 * @return static
 	 */
-	public function map(callable $callback)
+	public function map(Closure $callback)
 	{
 		return new static(array_map($callback, $this->items, array_keys($this->items)));
 	}
@@ -399,7 +403,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	 */
 	public function forPage($page, $perPage)
 	{
-		return $this->slice(($page - 1) * $perPage, $perPage);
+		return new static(array_slice($this->items, ($page - 1) * $perPage, $perPage));
 	}
 
 	/**
@@ -488,12 +492,12 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	/**
 	 * Create a collection of all elements that do not pass a given truth test.
 	 *
-	 * @param  callable|mixed  $callback
+	 * @param  \Closure|mixed  $callback
 	 * @return static
 	 */
 	public function reject($callback)
 	{
-		if ($this->useAsCallable($callback))
+		if ($callback instanceof Closure)
 		{
 			return $this->filter(function($item) use ($callback)
 			{
@@ -526,17 +530,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	 */
 	public function search($value, $strict = false)
 	{
-		if ( ! $this->useAsCallable($value))
-		{
-			return array_search($value, $this->items, $strict);
-		}
-
-		foreach ($this->items as $key => $item)
-		{
-			if ($value($item, $key)) return $key;
-		}
-
-		return false;
+		return array_search($value, $this->items, $strict);
 	}
 
 	/**
@@ -583,23 +577,23 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	 */
 	public function chunk($size, $preserveKeys = false)
 	{
-		$chunks = [];
+		$chunks = new static;
 
 		foreach (array_chunk($this->items, $size, $preserveKeys) as $chunk)
 		{
-			$chunks[] = new static($chunk);
+			$chunks->push(new static($chunk));
 		}
 
-		return new static($chunks);
+		return $chunks;
 	}
 
 	/**
 	 * Sort through each item with a callback.
 	 *
-	 * @param  callable  $callback
+	 * @param  \Closure  $callback
 	 * @return $this
 	 */
-	public function sort(callable $callback)
+	public function sort(Closure $callback)
 	{
 		uasort($this->items, $callback);
 
@@ -607,28 +601,26 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Sort the collection using the given callback.
+	 * Sort the collection using the given Closure.
 	 *
-	 * @param  callable|string  $callback
+	 * @param  \Closure|string  $callback
 	 * @param  int   $options
 	 * @param  bool  $descending
 	 * @return $this
 	 */
 	public function sortBy($callback, $options = SORT_REGULAR, $descending = false)
 	{
-		$results = [];
+		$results = array();
 
-		if ( ! $this->useAsCallable($callback))
-		{
-			$callback = $this->valueRetriever($callback);
-		}
+		if (is_string($callback)) $callback =
+                          $this->valueRetriever($callback);
 
 		// First we will loop through the items and get the comparator from a callback
 		// function which we were given. Then, we will sort the returned values and
 		// and grab the corresponding values for the sorted keys from this array.
 		foreach ($this->items as $key => $value)
 		{
-			$results[$key] = $callback($value, $key);
+			$results[$key] = $callback($value);
 		}
 
 		$descending ? arsort($results, $options)
@@ -648,9 +640,9 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	}
 
 	/**
-	 * Sort the collection in descending order using the given callback.
+	 * Sort the collection in descending order using the given Closure.
 	 *
-	 * @param  callable|string  $callback
+	 * @param  \Closure|string  $callback
 	 * @param  int  $options
 	 * @return $this
 	 */
@@ -667,7 +659,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	 * @param  mixed  $replacement
 	 * @return static
 	 */
-	public function splice($offset, $length = 0, $replacement = [])
+	public function splice($offset, $length = 0, $replacement = array())
 	{
 		return new static(array_splice($this->items, $offset, $length, $replacement));
 	}
@@ -675,7 +667,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	/**
 	 * Get the sum of the given values.
 	 *
-	 * @param  callable|string|null  $callback
+	 * @param  \Closure|null  $callback
 	 * @return mixed
 	 */
 	public function sum($callback = null)
@@ -685,7 +677,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 			return array_sum($this->items);
 		}
 
-		if ( ! $this->useAsCallable($callback))
+		if (is_string($callback))
 		{
 			$callback = $this->valueRetriever($callback);
 		}
@@ -693,6 +685,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 		return $this->reduce(function($result, $item) use ($callback)
 		{
 			return $result += $callback($item);
+
 		}, 0);
 	}
 
@@ -712,10 +705,10 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	/**
 	 * Transform each item in the collection using a callback.
 	 *
-	 * @param  callable  $callback
+	 * @param  \Closure  $callback
 	 * @return $this
 	 */
-	public function transform(callable $callback)
+	public function transform(Closure $callback)
 	{
 		$this->items = array_map($callback, $this->items);
 

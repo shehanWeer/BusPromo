@@ -9,14 +9,14 @@ trait AuthenticatesAndRegistersUsers {
 	/**
 	 * The Guard implementation.
 	 *
-	 * @var \Illuminate\Contracts\Auth\Guard
+	 * @var Guard
 	 */
 	protected $auth;
 
 	/**
 	 * The registrar implementation.
 	 *
-	 * @var \Illuminate\Contracts\Auth\Registrar
+	 * @var Registrar
 	 */
 	protected $registrar;
 
@@ -33,7 +33,7 @@ trait AuthenticatesAndRegistersUsers {
 	/**
 	 * Handle a registration request for the application.
 	 *
-	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \Illuminate\Foundation\Http\FormRequest  $request
 	 * @return \Illuminate\Http\Response
 	 */
 	public function postRegister(Request $request)
@@ -71,7 +71,7 @@ trait AuthenticatesAndRegistersUsers {
 	public function postLogin(Request $request)
 	{
 		$this->validate($request, [
-			'email' => 'required|email', 'password' => 'required',
+			'email' => 'required', 'password' => 'required',
 		]);
 
 		$credentials = $request->only('email', 'password');
@@ -81,21 +81,11 @@ trait AuthenticatesAndRegistersUsers {
 			return redirect()->intended($this->redirectPath());
 		}
 
-		return redirect($this->loginPath())
-					->withInput($request->only('email', 'remember'))
+		return redirect('/auth/login')
+					->withInput($request->only('email'))
 					->withErrors([
-						'email' => $this->getFailedLoginMessage(),
+						'email' => 'These credentials do not match our records.',
 					]);
-	}
-
-	/**
-	 * Get the failed login message.
-	 *
-	 * @return string
-	 */
-	protected function getFailedLoginMessage()
-	{
-		return 'These credentials do not match our records.';
 	}
 
 	/**
@@ -107,7 +97,7 @@ trait AuthenticatesAndRegistersUsers {
 	{
 		$this->auth->logout();
 
-		return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
+		return redirect('/');
 	}
 
 	/**
@@ -117,22 +107,7 @@ trait AuthenticatesAndRegistersUsers {
 	 */
 	public function redirectPath()
 	{
-		if (property_exists($this, 'redirectPath'))
-		{
-			return $this->redirectPath;
-		}
-
 		return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
-	}
-
-	/**
-	 * Get the path to the login route.
-	 *
-	 * @return string
-	 */
-	public function loginPath()
-	{
-		return property_exists($this, 'loginPath') ? $this->loginPath : '/auth/login';
 	}
 
 }
