@@ -78,4 +78,14 @@ Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController'
 ]);
+
+//Route::get('upload_video','AdvertisementController@store');
+//Route::get('upload_video','AdvertisementController@temp');
+Route::get('upload_video', ['as' => 'upload_video', 'uses' => 'AdvertisementController@temp']);
+
+Route::post('loadData','apiController@loadData');
+
+Route::get('getupdatestamp','Apicontroller@getupdatestamp');
+
+Route::get('youtubeRox', 'YoutubeController@upload');
 ?>
