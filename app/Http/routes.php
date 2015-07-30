@@ -73,28 +73,9 @@ Route::get('remove_advertiser','PagesController@remove_advertiser');
 
 Route::get('user','PagesController@user');
 
-Route::get('add_advertisement','PagesController@add_advertisement');
-
-Route::get('delete_advertisement','PagesController@delete_advertisement');
-
-//Route::get('upload_video','AdvertisementController@store');
-//Route::get('upload_video','AdvertisementController@temp');
-Route::get('upload_video', ['as' => 'upload_video', 'uses' => 'AdvertisementController@temp']);
-
-Route::get('getUpdateFlag','apiController@checkUpdateFlag');
-
-Route::get('getnewData','apiController@getnewData');
-
-//Route::get('loadData','apiController@loadData');
-
-Route::post('loadData','apiController@loadData');
-
 Route::controllers([
 
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController'
 ]);
-
-Route::get('youtubeRox', 'YoutubeController@upload');
-
 ?>
