@@ -60,7 +60,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 	 */
 	public function collapse()
 	{
-		return new static(array_collapse($this->items));
+		return new static(Arr::collapse($this->items));
 	}
 
 	/**
